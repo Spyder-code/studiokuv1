@@ -20,7 +20,7 @@
         <div class="row justify-content-center mb-4 mt-4">
             @foreach ($data as $item)
             <div class="col col-6">
-                <img src="{{ asset('image/'.$item->nama_mitra.'/'.$item->image) }}" class="img-thumbnail" style="width:100%; height:530px">
+                <img src="{{ asset('image/'.$item->nama_mitra.'/'.$item->image) }}" class="img-thumbnail" style="height:50%">
             </div>
             <div class="col col-6 border-right">
 
@@ -37,7 +37,7 @@
                 </div>
                 <p class="card-text text-light font-weight-bold mt-2" style="font-size: 26px;">Rp. {{number_format($item->harga,2,',','.')}} <small>per jam</small></p>
                 <div><p> Minimal booking 2 jam</p></div>
-                <div class="card" style="width: 25rem;">
+                <div class="card">
         <div class="card-body">
             @if ($message = Session::get('danger'))
             <div class="row">

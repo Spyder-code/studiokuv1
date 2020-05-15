@@ -24,9 +24,14 @@
         </div>
     @endif
 
-        <!-- Button trigger modal-->
-<a href="{{url('studio')}}" class="btn btn-primary d-inline"><i class="fas fa-undo mr-3 prefix"></i>Kembali ke studio</a>
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAbandonedCart"><i class="fas fa-plus mr-3 prefix"></i>Tambah ruangan</button>
+<div class="container">
+    <div class="row">
+        <div class="col">
+    <a href="{{url('studio')}}" class="btn btn-primary d-inline"><i class="fas fa-undo mr-3 prefix"></i>Kembali ke studio</a>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAbandonedCart"><i class="fas fa-plus mr-3 prefix"></i>Tambah ruangan</button>
+        </div>
+    </div>
+</div>
 
 
     <!-- Modal: modalAbandonedCart-->
@@ -116,75 +121,131 @@
     <div class="container">
         <div class="row">
             @foreach ($ruangan as $item)
-            <div class="col">
-                <div class="card mt-3 ml-5">
-                    <img class="img-thumbnail ml-5 mr-5 mt-3" src="{{ asset('image/'.$nama.'/'.$item->image) }}" style="height:260px" alt="{{$item->nama}}">
+            <div class="col col-sm-5 mb-5">
+                <div class="card ml-5">
+                    <img class="img-thumbnail mt-3" src="{{ asset('image/'.$nama.'/'.$item->image) }}" style="height:260px" alt="{{$item->nama}}">
                     <div class="card-body">
                         <h1 class="card-title text-center">{{$item->nama}}</h1>
-                        <ul class="list-group text-left">
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Kategori</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        {{$item->kategori}}
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Fasilitas</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        {{$item->fasilitas}}
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Harga/jam</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        Rp. {{$item->harga}}
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <div class="row text-center">
-                            <div class="col">
-                                <form action="{{'ruangan/'.$item->id}}" method="get">
-                                    @csrf
-                                    <input type="hidden" name="idStudio" value="{{$item->id}}">
-                                    <button type="submit" class="btn btn-primary">Ubah</button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="{{'hapus/'.$item->id}}" method="get">
-                                    @csrf
-                                    <input type="hidden" name="idStudio" value="{{$item->id}}">
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
+            <div class="col col-sm-7">
+                <ul class="list-group text-left">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                <label for="address">Studio</label>
+                            </div>
+                            <div class="col">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                {{$namaStudio}}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                <label for="address">Kategori</label>
+                            </div>
+                            <div class="col">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                {{$item->kategori}}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                <label for="address">Fasilitas</label>
+                            </div>
+                            <div class="col">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                {{$item->fasilitas}}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                <label for="address">Harga/jam</label>
+                            </div>
+                            <div class="col">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                Rp. {{$item->harga}}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <div class="row text-center">
+                        <div class="col">
+                                <a data-toggle="modal" data-target="#ubah-{{$item->id}}" class="btn btn-primary">Ubah</a>
+                        </div>
+                        <div class="col">
+                            <form action="{{url('hapusRuang')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="idRuang" value="{{$item->id}}">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- modal nomor --}}
+            <div class="modal fade" id="ubah-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Data {{$item->nama}}</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-row"  method="post" action="{{url('updateRuang')}}">
+                                <input type="hidden" name="idRuang" value="{{$item->id}}">
+                                @csrf
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="nama" value="{{$item->nama}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <select type="text" class="form-control" name="kategori">
+                                            <option value="Studio latihan">Studio latihan</option>
+                                            <option value="Studio rekaman">Studio rekaman</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="fasilitas" value="{{$item->fasilitas}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="harga" value="{{$item->harga}}">
+                                    </div>
+                                </div>
+                        </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Ganti</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                {{ $ruangan->links() }}
+            </div>
         </div>
     </div>
 

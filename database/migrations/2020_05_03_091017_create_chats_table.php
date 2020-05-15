@@ -18,6 +18,8 @@ class CreateChatsTable extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_mitra');
             $table->string('pesan');
+            $table->string('image')->nullable();
+            $table->integer('role');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');

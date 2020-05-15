@@ -86,12 +86,12 @@
             @error('password')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-            </div>
             <div class="navbar-nav ml-auto">
                 <a class="btn btn btn-outline-info text-light mr-3 tombol font-weight-normal" href="{{url('mitra')}}">Mitra Studio</a>
-                <img class="img-profile rounded-circle mr-1" data-toggle="modal" data-target="#modalLRForm" href="#" src="{{asset('image/default.jpg')}}" style="width: 60px; height: 60px; ">
+                <a class="btn btn btn-outline-info text-light mr-3 tombol font-weight-normal" data-toggle="modal" data-target="#modalLRForm" href="#">login</a>
+                {{-- <img class="img-profile rounded-circle mr-1" data-toggle="modal" data-target="#modalLRForm" href="#" src="{{asset('image/default.jpg')}}" style="width: 60px; height: 60px; "> --}}
             </div>
-            <span class="mr-2 d-none d-lg-inline text-light-600" data-toggle="modal" data-target="#modalLRForm" style="color:white">Login</span>
+            </div>
             @endif
         </div>
       </div>

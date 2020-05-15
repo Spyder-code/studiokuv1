@@ -28,13 +28,15 @@
             <div class="col mt-5">
                 <h2>Transaction</h2>
                 <hr>
-                <table class="table table-bordered">
+                @if ($data->count()>0)
+                <table class="table table-responsive table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Atas nama</th>
                             <th scope="col">Ruangan</th>
                             <th scope="col">Nama band</th>
+                            <th scope="col">Tanggal main</th>
                             <th scope="col">Waktu main</th>
                             <th scope="col">Waktu selesai</th>
                             <th scope="col">Total harga</th>
@@ -42,28 +44,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $item)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Almi</td>
-                            <td>F01</td>
-                            <td>Band A</td>
-                            <td>07.00 13-05-2020</td>
-                            <td>08.00 13-05-2020</td>
-                            <td>Rp. 50.000</td>
-                            <td><i class="fas fa-hourglass-half"></i> Pending</td>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->namaRuangan}}</td>
+                            <td>{{$item->nama_band}}</td>
+                            <td>{{$item->tanggal_main}}</td>
+                            <td>{{$item->waktu_main}}</td>
+                            <td>{{$item->waktu_selesai}}</td>
+                            <td>{{$item->harga}}</td>
+                            <td><i class="fas fa-hourglass-half text-warning"></i> Pending</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>luay</td>
-                            <td>F02</td>
-                            <td>Band B</td>
-                            <td>07.00 14-05-2020</td>
-                            <td>08.00 14-05-2020</td>
-                            <td>Rp. 50.000</td>
-                            <td><i class="fas fa-hourglass-half"></i> Pending</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                        @else
+                            <tr>
+                                <h1 class="text-grey text-center">Data kosong!</h1>
+                            </tr>
+                        @endif
             </div>
         </div>
 

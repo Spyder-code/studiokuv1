@@ -170,78 +170,113 @@
     <!-- Modal: modalAbandonedCart-->
     <hr>
     <div class="container">
-        <div class="row">
+        <form action="{{url('updateStudio')}}" id="updateStudio" method="POST">
+            @csrf
+        <div class="row mb-3">
             @foreach ($studio as $item)
-            <div class="col">
-                <div class="card mt-3 ml-5">
-                    <img class="img-thumbnail ml-5 mr-5 mt-3" src="{{ asset('image/'.$nama.'/'.$item->image) }}" style="height:260px" alt="{{$item->name}}">
+            <div class="col col-sm-5 mb-5">
+                <div class="card ml-5">
+                    <img class="img-thumbnail mt-3" src="{{ asset('image/'.$nama.'/'.$item->image) }}" style="height:260px" alt="{{$item->name}}">
                     <div class="card-body">
-                        <h1 class="card-title text-center">{{$item->name}}</h1>
-                        <ul class="list-group text-left">
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Address</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        {{$item->address}}
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Phone</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        {{$item->phone}}
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Time</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        {{$item->open}} - {{$item->closed}}
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="address">Description</label>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        {{$item->description}}
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <form action="{{'ruangan/'.$item->id}}" method="get">
-                            @csrf
-                            <input type="hidden" name="idStudio" value="{{$item->id}}">
-                            <button type="submit" class="btn btn-outline-primary">Lihat Studio</button>
-                        </form>
+                        <h1 class="card-title text-center" id="namaStudio">{{$item->name}}</h1>
                     </div>
                 </div>
             </div>
+            <div class="col col-sm-7">
+                <ul class="list-group text-left">
+                        <input type="hidden" name="idStudio" value="{{$item->id}}">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col col-3">
+                                <label for="address">Alamat</label>
+                            </div>
+                            <div class="col col-2">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                <div id="address">{{$item->address}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col col-3">
+                                <label for="address">Nomor telp.</label>
+                            </div>
+                            <div class="col col-2">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                <div id="phone">{{$item->phone}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col col-3">
+                                <label for="address">Jam kerja</label>
+                            </div>
+                            <div class="col col-2">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col col-5">
+                                        <div id="timeA">{{$item->open}}</div>
+                                    </div>
+                                    <div class="col col-2">-</div>
+                                    <div class="col col-5">
+                                        <div id="timeB">{{$item->closed}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col col-3">
+                                <label for="address">Deskripsi</label>
+                            </div>
+                            <div class="col col-2">
+                                <label for="">:</label>
+                            </div>
+                            <div class="col">
+                                <div id="description">{{$item->description}}</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col col-sm-4">
+                            <form action="{{'ruangan/'.$item->id}}" method="get">
+                                @csrf
+                                <input type="hidden" name="idStudio" value="{{$item->id}}">
+                                <button type="submit" id="lihatStudio" class="btn btn-outline-secondary">Lihat Studio</button>
+                            </form>
+                        </div>
+                        <div class="col col-sm-4">
+                            <button type="submit" id="ubahStudio" class="btn btn-outline-primary">Ubah data Studio</button>
+                        </div>
+                        <div class="col col-sm-4">
+                            <div id="btnCancel"></div>
+                            <form action="{{'deleteStudio'}}" method="post" id="deleteStudio">
+                                @csrf
+                                <input type="hidden" name="idStudio" value="{{$item->id}}">
+                                <button type="submit" class="btn btn-outline-danger d-inline" onclick="return confirm('are you sure?')">Delete Studio</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
             @endforeach
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                Halaman : {{ $studio->currentPage() }} <br/>
+                {{ $studio->links() }}
+            </div>
         </div>
     </div>
 
@@ -267,24 +302,59 @@
 
             });
             $('#closeTime').mdtimepicker({
-
-            // format of the time value (data-time attribute)
             timeFormat: 'hh:mm:ss.000',
-
-            // format of the input value
             format: 'hh:mm:ss',
-
-            // theme of the timepicker
-            // 'red', 'purple', 'indigo', 'teal', 'green'
             theme: 'blue',
-
-            // determines if input is readonly
             readOnly: true,
-
-            // determines if display value has zero padding for hour value less than 10 (i.e. 05:30 PM); 24-hour format has padding by default
             hourPadding: false
-
             });
+
+            $("#ubahStudio").on('click',function(){
+                var address = $("#address").html();
+                var phone = $("#phone").html();
+                var description = $("#description").html();
+                var open = $("#timeA").html();
+                var closed = $("#timeB").html();
+                var nama = $("#namaStudio").html();
+
+                $("#lihatStudio").hide();
+                $("#deleteStudio").hide();
+                $("#btnCancel").html("<a id=\"cancel\" class=\"btn btn-outline-danger\">Cancel</a>");
+                $("#ubahStudio").replaceWith("<button type=\"submit\" id=\"submit\" class=\"btn btn-outline-success\">Submit</button>");
+
+
+                $("#address").replaceWith("<input type=\"text\" class=\"form-control\" name=\"address\" value=\""+address+"\">");
+                $("#namaStudio").replaceWith("<input type=\"text\" class=\"form-control\" name=\"namaStudio\" value=\""+nama+"\">");
+                $("#phone").replaceWith("<input type=\"text\" class=\"form-control\" name=\"phone\" value=\""+phone+"\">");
+                $("#description").replaceWith("<input type=\"text\" class=\"form-control\" name=\"description\" value=\""+description+"\">");
+                $("#timeA").replaceWith("<input type=\"text\" id=\"1\" placeholder=\"Open\" name=\"open\" value=\""+open+"\" class=\"form-control form-control-sm validate\">");
+                $("#timeB").replaceWith("<input type=\"text\" id=\"2\" placeholder=\"Closed\" name=\"closed\" value=\""+closed+"\" class=\"form-control form-control-sm validate\">");
+
+                $('#1').mdtimepicker({
+                timeFormat: 'hh:mm:ss.000',
+                format: 'hh:mm:ss',
+                theme: 'blue',
+                readOnly: true,
+                hourPadding: false
+                });
+                $('#2').mdtimepicker({
+                timeFormat: 'hh:mm:ss.000',
+                format: 'hh:mm:ss',
+                theme: 'blue',
+                readOnly: true,
+                hourPadding: false
+                });
+
+            $("#cancel").on('click',function(){
+                location.reload();
+            });
+
+            $("#submit").on('click',function(){
+                $("#updateStudio").submit();
+            });
+
+            })
+
 
         });
     </script>

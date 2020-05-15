@@ -24,7 +24,11 @@ class CreateRuangsTable extends Migration
             $table->string('image');
             $table->timestamps();
 
-            $table->foreign('id_studio')->references('id')->on('studios');
+            $table->foreign('id_studio')
+            ->references('id')
+            ->on('studios')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

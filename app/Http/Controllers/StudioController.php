@@ -109,6 +109,7 @@ class StudioController extends Controller
     {
         $url = $request->session()->put('url','/search');
         $kota = $request->kota;
+        // dd($kota);
         $jenis = $request->jenis;
         $studio = Studio::all();
         $provinsi = DB::table('wilayah_provinsi')->get();
@@ -123,6 +124,39 @@ class StudioController extends Controller
             return view('user.search',compact('data','provinsi','studio'));
         }else{
             return view('user.search','provinsi')->with(['success' => 'Add Studio is Success']);
+        }
+    }
+
+    public function searchKatalog(Request $request)
+    {
+        $katalog = $request->katalog;
+        $kota = $request->kota;
+        $url = $request->session()->put('url','/search');
+        $request->session()->put('katalog',$katalog);
+        $request->session()->put('kota',$kota);
+        if($katalog==1){
+            $jenis = $request->jenis;
+        $studio = Studio::all();
+        $provinsi = DB::table('wilayah_provinsi')->get();
+        $data = DB::table('ruangs')
+        ->join('studios','ruangs.id_studio','=','studios.id')
+        ->join('mitras','mitras.id','=','studios.id_mitra')
+        ->select('studios.address','mitras.nama as nama_mitra','studios.name as nama_studio','studios.id as id_studio','ruangs.*')
+        ->Where('studios.kota','LIKE', "%{$kota}%")
+        ->get();
+            return view('user.search',compact('data','provinsi','studio','katalog','kota'));
+        }else{
+        $jenis = $request->jenis;
+        $studio = Studio::all();
+        $provinsi = DB::table('wilayah_provinsi')->get();
+        $data = DB::table('ruangs')
+        ->join('studios','ruangs.id_studio','=','studios.id')
+        ->join('mitras','mitras.id','=','studios.id_mitra')
+        ->select('studios.address','mitras.nama as nama_mitra','studios.name as nama_studio','studios.id as id_studio','ruangs.*')
+        ->where('ruangs.kategori','LIKE', "%{$katalog}%")
+        ->Where('studios.kota','LIKE', "%{$kota}%")
+        ->get();
+            return view('user.search',compact('data','provinsi','studio','katalog','kota'));
         }
     }
 

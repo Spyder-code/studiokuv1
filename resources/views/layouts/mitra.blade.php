@@ -58,7 +58,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-light-600">{{$nama}}</span>
-                <img class="img-profile rounded-circle mr-5" src="{{asset('image/')}}/@yield('img')" style="width: 60px; height: 60px; ">
+                <img class="img-profile rounded-circle mr-5" src="{{asset('image/'.$nama.'/')}}/@yield('img')" style="width: 60px; height: 60px; ">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -121,6 +121,12 @@
         <a class="nav-link" href="{{url('jadwal')}}">
           <i class="fas fa-fw fa-calendar-alt"></i>
           <span>Jadwal Studio</span></a>
+      </li>
+
+      <li class="nav-item @yield('kasir')">
+        <a class="nav-link" href="{{url('kasir')}}">
+          <i class="fas fa-fw fa-cash-register"></i>
+          <span>Kasir</span></a>
       </li>
 
       <li class="nav-item">

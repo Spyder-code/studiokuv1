@@ -6,11 +6,13 @@ use App\Mitra;
 use App\Pemesanan;
 use App\Ruang;
 use App\Studio;
+use App\Transaksi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class MitraController extends Controller
 {
@@ -64,12 +66,144 @@ class MitraController extends Controller
         return view('mitra/index',compact('nama','user','image'));
     }
 
+    public function changeImage(Request $request)
+    {
+        $id = Auth()->guard('mitra')->user()->id;
+        $nama = auth()->guard('mitra')->user()->nama;
+        $folderPath = public_path('image/'.$nama.'/');
+        $request->validate([
+            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        if ($request->img == "default.jpg") {
+            if ($files = $request->file('images')) {
+                $destinationPath = public_path('image/'.$nama.'/');
+                $profileImage =  $nama.".".$files->getClientOriginalExtension();
+                $files->move($destinationPath, $profileImage);
+                $insert['image'] = "$profileImage";
+                Mitra::where('id', $id)->update([
+                    'image' => "$profileImage"
+                ]);
+                return back()->with(['success' => 'Image berhasil diubah']);
+            }
+        }else {
+            if (File::exists(public_path('image/'.$nama. '/' . $request->img))) {
+
+                File::delete(public_path('image/'.$nama. '/' . $request->img));
+            }
+            if ($files = $request->file('images')) {
+                $destinationPath = public_path('image/'.$nama.'/');
+                $profileImage =  $nama.".".$files->getClientOriginalExtension();
+                $files->move($destinationPath, $profileImage);
+                $insert['image'] = "$profileImage";
+                Mitra::where('id', $request->id)->update([
+                    'image' => "$profileImage"
+                ]);
+                return back()->with(['success' => 'Image berhasil diubah']);
+            }
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'pass1' => 'required',
+            'pass2' => 'required'
+        ]);
+        $id = Auth()->guard('mitra')->user()->id;
+        $pass = auth()->guard('mitra')->user()->password;
+        if (Hash::check($request->pass1, $pass)) {
+            Mitra::where('id', $id)->update([
+                'password' => Hash::make($request->pass2)
+            ]);
+            return back()->with(['success' => 'Password berhasil diubah']);
+        }
+        return back()->with(['danger' => 'Wrong password']);
+    }
+
+    public function changeAlamat(Request $request)
+    {
+        $request->validate([
+            'alamat' => 'required',
+        ]);
+        $id = Auth()->guard('mitra')->user()->id;
+            Mitra::where('id', $id)->update([
+                'alamat' => $request->alamat
+            ]);
+            return back()->with(['success' => 'Data berhasil diubah']);
+    }
+
+    public function changeNomor(Request $request)
+    {
+        $request->validate([
+            'nomor' => 'required|numeric'
+        ]);
+        $id = Auth()->guard('mitra')->user()->id;
+            Mitra::where('id', $id)->update([
+                'nomor' => $request->nomor
+            ]);
+            return back()->with(['success' => 'Data berhasil diubah']);
+    }
+
+    public function deleteStudio(Request $request)
+    {
+        $id = $request->idStudio;
+            Studio::where('id', $id)->delete();
+            return redirect('studio')->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    public function hapusRuang(Request $request)
+    {
+        $id = $request->idRuang;
+            Ruang::where('id', $id)->delete();
+            return back()->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    public function updateStudio(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|numeric',
+            'address' => 'required',
+            'open' => 'required',
+            'closed' => 'required',
+            'description' => 'required',
+            'namaStudio' => 'required',
+        ]);
+        $idStudio = $request->idStudio;
+            Studio::where('id', $idStudio)->update([
+                'phone' => $request->phone,
+                'name' => $request->namaStudio,
+                'address' => $request->address,
+                'open' => $request->open,
+                'closed' => $request->closed,
+                'description' => $request->description,
+            ]);
+            return back()->with(['success' => 'Data berhasil diubah']);
+    }
+
+    public function updateRuang(Request $request)
+    {
+        $request->validate([
+            'harga' => 'required|numeric',
+            'nama' => 'required',
+            'fasilitas' => 'required',
+            'kategori' => 'required',
+        ]);
+        $idRuang = $request->idRuang;
+            Ruang::where('id', $idRuang)->update([
+                'harga' => $request->harga,
+                'nama' => $request->nama,
+                'fasilitas' => $request->fasilitas,
+                'kategori' => $request->kategori,
+            ]);
+            return back()->with(['success' => 'Data berhasil diubah']);
+    }
+
     public function studio()
     {
         $nama = auth()->guard('mitra')->user()->nama;
         $id = auth()->guard('mitra')->user()->id;
         $image = auth()->guard('mitra')->user()->image;
-        $studio = Studio::all()->where('id_mitra',$id);
+        $studio = Studio::where('id_mitra',$id)->simplePaginate(1);
         $provinsi = DB::table('wilayah_provinsi')->get();
         return view('mitra.studio',compact('nama','image','studio','provinsi'));
     }
@@ -128,8 +262,9 @@ class MitraController extends Controller
         $image = auth()->guard('mitra')->user()->image;
         $nama = auth()->guard('mitra')->user()->nama;
         $id = $studio->id;
-        $ruangan = Ruang::all()->where('id_studio',$id);
-        return view('mitra.ruangan',compact('nama','id','image','ruangan'));
+        $namaStudio = $studio->name;
+        $ruangan = Ruang::where('id_studio',$id)->simplePaginate(2);
+        return view('mitra.ruangan',compact('nama','id','image','ruangan','namaStudio'));
     }
 
     public function addRuangan(Request $request)
@@ -164,7 +299,18 @@ class MitraController extends Controller
         $nama = auth()->guard('mitra')->user()->nama;
         $id = auth()->guard('mitra')->user()->id;
         $image = auth()->guard('mitra')->user()->image;
-        return view('mitra.transaksi',compact('nama','image'));
+        $data = DB::table('pemesanans')
+        ->join('users','users.id','=','pemesanans.id_user')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+        ->orderBy('created_at', 'desc')->paginate(5);
+
+        $dataPembayaran = DB::table('transaksis')
+        ->join('pemesanans','pemesanans.id','=','transaksis.id_pemesanan')
+        ->select('pemesanans.nama_band','transaksis.*')
+        ->orderBy('created_at', 'desc')->paginate(5);
+
+        return view('mitra.transaksi',compact('nama','image','data','dataPembayaran'));
     }
 
     public function jadwal()
@@ -193,7 +339,13 @@ class MitraController extends Controller
         $nama = auth()->guard('mitra')->user()->nama;
         $id = auth()->guard('mitra')->user()->id;
         $image = auth()->guard('mitra')->user()->image;
-        return view('mitra.pendingPayment',compact('nama','image'));
+        $data = DB::table('pemesanans')
+        ->join('users','users.id','=','pemesanans.id_user')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+        ->where('pemesanans.status',1)
+        ->orderBy('created_at', 'desc')->paginate(5);
+        return view('mitra.pendingPayment',compact('nama','image','data'));
     }
 
     public function accept()
@@ -201,7 +353,79 @@ class MitraController extends Controller
         $nama = auth()->guard('mitra')->user()->nama;
         $id = auth()->guard('mitra')->user()->id;
         $image = auth()->guard('mitra')->user()->image;
-        return view('mitra.acceptPayment',compact('nama','image'));
+        $data = DB::table('pemesanans')
+        ->join('users','users.id','=','pemesanans.id_user')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+        ->where('pemesanans.status',2)
+        ->orderBy('created_at', 'desc')->paginate(5);
+        return view('mitra.acceptPayment',compact('nama','image','data'));
+    }
+
+    public function kasir()
+    {
+        $nama = auth()->guard('mitra')->user()->nama;
+        $id = auth()->guard('mitra')->user()->id;
+        $image = auth()->guard('mitra')->user()->image;
+        $data = DB::table('pemesanans')
+        ->join('users','users.id','=','pemesanans.id_user')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+        ->where('pemesanans.status',1)
+        ->orderBy('created_at', 'desc')->paginate(5);
+        return view('mitra.kasir',compact('nama','image','data'));
+    }
+
+    public function kode(Request $request)
+    {
+        $nama = auth()->guard('mitra')->user()->nama;
+        $id = auth()->guard('mitra')->user()->id;
+        $image = auth()->guard('mitra')->user()->image;
+        $nama = $request->kode;
+        $output="Kode salah";
+        $data = Pemesanan::query()->where('kode','LIKE', "%{$nama}%")
+        ->get();
+        if($data->count()>0){
+            foreach($data as $item){
+                if($item->status==2){
+                    return response("Transaksi sudah dibayar");
+                }else{
+                    return response($data);
+                }
+            }
+        }else{
+            return response($output);
+        }
+    }
+
+    public function pembayaran(Request $request)
+    {
+        $uangS = str_replace(',', '', $request->uang);
+        $hargaS = str_replace('.', '', $request->harga);
+        $hargaA = str_replace('Rp', '', $hargaS);
+        $uang = (int)$uangS;
+        $harga = (int)$hargaA;
+        $nama = auth()->guard('mitra')->user()->nama;
+        $id = auth()->guard('mitra')->user()->id;
+        $image = auth()->guard('mitra')->user()->image;
+        $data = new Transaksi();
+        $data->id_pemesanan = $request->id;
+        $data->total_biaya = $harga;
+        $data->uang = $uang;
+        $data->kembalian = $uang - $harga;
+        $data->save();
+        Pemesanan::where('id',$request->id)
+                    ->update([
+                        'status' => 2
+                    ]);
+        $id = $data->id;
+        $data = DB::table('transaksis')
+        ->join('pemesanans','pemesanans.id','=','id_pemesanan')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->select('ruangs.nama as namaRuangan','pemesanans.*','transaksis.*')
+        ->where('transaksis.id',$id)
+        ->get();
+        return view('mitra.nota',compact('nama','image','data'));
     }
 }
 

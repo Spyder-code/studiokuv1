@@ -5,13 +5,13 @@
         <div class="row">
             <div class="col col-3 border-right mt-5">
                 <div class="form-group mt-4">
-                    <a href="{{url('account')}}" class="btn btn-primary" style="width:200px;"><i class="fas fa-user mr-3"></i>Profile</a>
+                    <a href="{{url('account')}}" class="btn btn-primary ac" ><i class="fas fa-user mr-3"></i>Profile</a>
                     <hr>
-                    <a href="{{url('pesanan-saya')}}" class="btn btn-success" style="width:200px;"><i class="fas fa-shopping-cart mr-3"></i>Pesanan saya</a>
+                    <a href="{{url('pesanan-saya')}}" class="btn btn-success ac" ><i class="fas fa-shopping-cart mr-3"></i>Pesanan saya</a>
                     <hr>
-                    <a href="{{url('notifikasi')}}" class="btn btn-warning" style="width:200px;"><i class="fas fa-bell mr-3"></i>Notifikasi</a>
+                    <a href="{{url('notifikasi')}}" class="btn btn-warning ac" ><i class="fas fa-bell mr-3"></i>Notifikasi</a>
                     <hr>
-                    <a href="#" data-toggle="modal" data-target="#logoutModal" class="btn btn-secondary" style="width:200px;"><i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
+                    <a href="#" data-toggle="modal" data-target="#logoutModal" class="btn btn-secondary ac" ><i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
                     <hr>
                 </div>
             </div>

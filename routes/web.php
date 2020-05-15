@@ -21,6 +21,7 @@ Route::get('/searchProvinsi','MitraController@searchProvinsi');
 Route::get('/logoutMitra', 'MitraLoginController@logout');
 Route::post('/registerMitra','MitraController@register');
 Route::get('/search','StudioController@search');
+Route::get('/searchKatalog','StudioController@searchKatalog');
 Route::post('/loginMitra', 'MitraLoginController@login');
 Route::post('/booking', 'StudioController@booking');
 Route::post('/katalog', 'StudioController@katalog');
@@ -56,13 +57,24 @@ Route::group(['middleware'=>'mita'], function() {
     Route::get('/jadwal', 'MitraController@jadwal');
     Route::get('/pendding', 'MitraController@pending');
     Route::get('/accept', 'MitraController@accept');
+    Route::get('/kasir', 'MitraController@kasir');
     Route::get('/data', 'MitraController@dataJadwal');
+    Route::get('/ruangan/{studio}', 'MitraController@ruangan');
 
 
     Route::post('/addStudio', 'MitraController@addStudio');
     Route::post('/provinsi', 'MitraController@provinsi');
     Route::post('/addRuangan', 'MitraController@addRuangan');
-    Route::get('/ruangan/{studio}', 'MitraController@ruangan');
+    Route::post('/changeImageMitra', 'MitraController@changeImage');
+    Route::post('/changePasswordMitra', 'MitraController@changePassword');
+    Route::post('/changeAlamat', 'MitraController@changeAlamat');
+    Route::post('/changeNomor', 'MitraController@changeNomor');
+    Route::post('/updateStudio', 'MitraController@updateStudio');
+    Route::post('/deleteStudio', 'MitraController@deleteStudio');
+    Route::post('/hapusRuang', 'MitraController@hapusRuang');
+    Route::post('/updateRuang', 'MitraController@updateRuang');
+    Route::post('/kode', 'MitraController@kode');
+    Route::post('/pembayaranKode', 'MitraController@pembayaran');
 
 });
 

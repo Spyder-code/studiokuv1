@@ -12,7 +12,14 @@
     </div>
 </div>
 @endif
-
+<section class="bg-light">
+    <div class="jumbotron jumbotron-mitra jumbotron-fluid text-center" style="background-image: url({{asset('image/studiorekaman.jpg')}});">
+        <div class="container">
+        <h6 class="display-4"><span>Tingkatkan Penyewa</span> Studio Musik <br>Anda dengan <span>Mendaftarkan</span><br> Studio Musik Anda</h6>
+        <a href="{{url('mitra/registrasi')}}" class="btn btn-secondary tombol-daftar shadow-lg">Di Sini</a>
+        </div>
+</div>
+</section>
 <!-- akhir jumbotron -->
 
 <div class="container">
@@ -23,10 +30,9 @@
 
 <div class="col-lg-12 mb-5 mt-3 pt-3">
 <div class="section-title  text-center">
-    <h2>Layanan yang Kami Berikan</h2>
+    <h3>Mengapa di Studioku ?</h3>
     <span class="title-line"><i class="fa fa-music" ></i></span>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto.</p>
-
+    <p>Apakah Anda siap untuk menjangkau lebih dari sebelumnya ? </p>
 </div>
 </div>
 <!-- Section Title End -->
@@ -37,33 +43,36 @@
 <div class="col-lg-4">
 <div class="service-1">
   <span class="service-1-icon">
-    <span class="flaticon-car-1"><i class="fa fa-laptop" style="color: #17a2b8"></i></span>
+    <span class="flaticon-car-1"><i class="fa fa-bolt" style="color: #17a2b8"></i></span>
   </span>
   <div class="service-1-contents">
-    <h3>Info Studio</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+    <h3>Mudah</h3>
+    <p>Studioku membantu dan memudahkan Anda dalam menawarkan penyewaan studio music yang Anda miliki agar orang bisa melihatnya kapanpun.</p>
+    <p>Proses pendaftaran sebagai mitra sangat mudah, anda bisa menjadi mitra hanya dalam beberapa menit saja.</p>
   </div>
 </div>
 </div>
 <div class="col-lg-4">
 <div class="service-1">
   <span class="service-1-icon">
-    <span class="flaticon-traffic"><i class="fa fa-laptop" style="color: #17a2b8"></i></span>
+    <span class="flaticon-traffic"><i class="fa fa-sun" style="color: #17a2b8"></i></span>
   </span>
   <div class="service-1-contents">
-    <h3>Pesan Studio</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+    <h3>Menarik</h3>
+    <p>Studio music Anda dapat dilihat banyak orang yang ingin menyewanya dengan Studioku</p>
+            <p>Customer yang ingin menyewa studio dapat melihat semua informasi keunggulan studio anda</p>
   </div>
 </div>
 </div>
 <div class="col-lg-4">
 <div class="service-1">
   <span class="service-1-icon">
-    <span class="flaticon-valet"><i class="fa fa-fw fa-laptop" style="color: #17a2b8"></i></span>
+    <span class="flaticon-valet"><i class="fa fa-fw fa-smile-wink" style="color: #17a2b8"></i></span>
   </span>
   <div class="service-1-contents">
-    <h3>Management Studio</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+    <h3>Lebih baik</h3>
+    <p>Berkembang menjadi studio music yang lebih baik dengan system rating di Studioku.</p>
+    <p>Studioku juga membantu Anda dalam penjadwalan sewa.</p>
   </div>
 </div>
 </div>
@@ -81,41 +90,119 @@
 <div class="container">
 <div class="col-lg-12 mb-4 mt-5 pt-3">
 <div class="section-title  text-center">
-    <h2>Jenis Studio</h2>
+    <h2>Cara kerja</h2>
     <span class="title-line"><i class="fa fa-music" ></i></span>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto.</p>
-
+    <p>Dibutuhkan beberapa menit untuk menjadi mitra kami !</p>
 </div>
 </div>
 <!-- Section Title End -->
 
-<div class="row mb-5">
-<div class="col-lg  figur">
-<a href="#office1"><img class="thumblr" src="{{asset('image/band.jpg')}}" alt="office 1">
-<span>Ruang Latihan</span>
-</a>
-</div>
-<div class="col-lg  figur">
-<a href="#office1"><img class="thumblr" src="{{asset('image/podcast.jpg')}}" alt="office 1">
-<span>Ruang Podcast</span>
-</a>
-</div>
-<div class="col-lg  figur">
-<a href="#office1"><img class="thumblr" src="{{asset('image/menengah.jpg')}}" alt="office 1">
-<span>Studio Menengah</span>
-</a>
-</div>
-<div class="col-lg  figur">
-<a href="#office1"><img class="thumblr" src="{{asset('image/premium.jpg')}}" alt="office 1">
-<span>Studio Premium</span>
-</a>
-</div>
-</div>
+    <div class="row mt-5">
+        <div class="col-lg-4">
+        <div class="service-1">
+            <span class="service-1-icon">
+            <span class="flaticon-car-1" style="color: #17a2b8">1</span>
+            </span>
+            <div class="service-1-contents">
+            <h4>Daftar Akun</h4>
+            <p>Kemudian masuk ke halaman daftar studio dan lengkapi data studio Anda</p>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-4">
+        <div class="service-1">
+            <span class="service-1-icon">
+            <span class="flaticon-traffic" style="color: #17a2b8">2</span>
+            </span>
+            <div class="service-1-contents">
+            <h4>Unggah Studio</h4>
+            <p>Harap login ke mitra center Anda dan unggah fasilitas studio Anda </p>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-4">
+        <div class="service-1">
+            <span class="service-1-icon">
+            <span class="flaticon-valet" style="color: #17a2b8">3</span>
+            </span>
+            <div class="service-1-contents ">
+            <h4>Mulai Menyewakan Studio</h4>
+            <p>Berproses bersama berkembang dengan Studioku </p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<hr>
+<!-- artikel -->
+      <!-- Section Title Start -->
+      <div class="site-section bg-light">
+        <div class="container">
+        <div class="col-lg-12 mb-4 mt-5">
+            <div class="section-title  text-center mt-5">
+                <h3>Apakah ada pertanyaan lain? </h3>
+                <span class="title-line"><i class="fa fa-music" ></i></span>
+                <p>Kunjungi Pusat Bantuan Studioku sekarang untuk informasi yang Anda perlukan</p>
+
+            </div>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="row mb-5 justify-content-center pt-5">
+          <div class="col-10">
+            <div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header bg-info" id="headingOne">
+        <h3 class="mb-0">
+            <button class="btn btn-link text-light" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Sewa studio musik secara online di Studioku.com
+            </button>
+        </h3>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+        Teknologi berkembang dengan pesat dan banyak kemudahan yang didapatkan. Hal itu terlihat jelas saat ini platform online, dimana salah satunya adalah penyewaan online yang memberikan manfaat bagi orang yang menggunakannya. Semua kebutuhan yang diperlukan sekarang mudah untuk didapatkan hanya dengan smartphone atau laptop dan internet. Tidak hanya customer saja yang merasakan kemudahan dengan hadirnya platform penyewaan online ini, tetapi juga mereka yang memiliki usaha dan ingin menyewakan fasilitas studionya. Studioku.com sebagai e-commerce menawarkan kerjasama untuk Anda untuk bergabung menjadi mitra dengan berbagai keuntungan yang didapatkan.
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header bg-info" id="headingTwo">
+        <h3 class="mb-0">
+            <button class="btn btn-link collapsed text-light" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Peluang bisnis online yang mudah
+            </button>
+        </h3>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+            Mengamati perkembangan bisnis online sekarang terlihat sangat pesat yang membuka peluang untuk Anda yang sudah memiliki studio untuk mencoba menyewakannya secara online. Dengan menyewakannya secara online, hal ini sangat membantu Anda karena itu cara yang efektif. Studioku adalah salah satu wadah online yang berguna untuk Anda. Dengan dukungan pemasarannya akan membuat Anda lebih mudah untuk menyewakan dan menawarkan fasilitas studio yang Anda miliki. Segera manfaatkan peluang bisnis penyewaan online dan rasakan pengalaman menyewakan studio secara online lebih baik dengan bermitra dengan Studioku.com
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header bg-info" id="headingThree">
+        <h3 class="mb-0">
+            <button class="btn btn-link collapsed text-light" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Mengapa menyewakan studio musik secara online di Studioku?
+            </button>
+        </h3>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+            Studioku sebagai platform penyewaan studio music menjalankan proses bisnis customer to customer. Studioku.com membantu dengan cara mewadahi semua perusahaan maupun perseorangan yang mempunyai studio music dapat memasarkan studio musiknya dengan efisien  yakni dengan menginputkan data studio musiknya di Studioku agar bisa diketahui oleh orang yang ingin menyewa studio music, meningkatkan pemesanan dan pendapatan Anda dan menjadikan bisnis Anda diluar jangkauan apa yang sebelumnya mungkin. Selanjutnya Studioku juga membantu mengatur jadwal studio. Kemudian untuk customer  yang ingin menyewa studio music bisa melihat dulu studio music yang bisa disewa pada waktu tertentu serta mengetahui semua informasi mengenai studio music tertentu, termasuk fasilitas dan kebijakan peralatan selama menyewa studio music.
+        </div>
+        </div>
+    </div>
+    </div>
+            </div>
+        </div>
 
 
-<!-- akhir artikel -->
-<!-- akhir sub judul -->
+    <!-- akhir artikel -->
 </div>
+      </div>
+      </div>
 
 
 

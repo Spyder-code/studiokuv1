@@ -39,17 +39,18 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-            <a class="text-secondary mr-2 tombol font-weight-normal" href="{{url('/mitra')}}">Home</a>
+            <a class="btn btn-outline-secondary mr-2 font-weight-normal" href="{{url('/mitra')}}">Home</a>
         </div>
         <div class="navbar-nav ml-auto">
-            <a class="text-secondary mr-5 tombol font-weight-normal" href="{{url('/')}}">Cari Studio</a>
+            <a class="btn btn-outline-secondary mr-5 font-weight-normal" href="{{url('/')}}">Cari Studio</a>
         </div>
             <div class="navbar-nav ml-auto">
-                <a class="btn btn-outline-primary text-secondary mr-1 tombol font-weight-normal" href="{{url('mitra/registrasi')}}">Registrasi</a>
+                <a class="btn btn-outline-primary text-secondary mr-1 font-weight-normal" href="{{url('mitra/registrasi')}}">Registrasi</a>
             </div>
             <div class="navbar-nav">
-                <a class="btn btn-outline-primary text-secondary mr-3 tombol font-weight-normal" href="{{url('mitra/login')}}">Login</a>
+                <a class="btn btn-outline-primary text-secondary mr-3 font-weight-normal" href="{{url('mitra/login')}}">Login</a>
             </div>
             {{-- <span class="mr-2 d-none d-lg-inline text-light-600" data-toggle="modal" data-target="#modalLRForm" style="color:white">Login</span> --}}
         </div>

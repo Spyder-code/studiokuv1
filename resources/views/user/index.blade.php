@@ -21,7 +21,8 @@
         <div class="row">
             <div class="col-lg">
                 <label for="pencarian">Kota Studio</label>
-                <select name="kota" id="kota" placeHolder="Cari berdasarkan kota">
+                <input type="text" name="kota" id="kota" class="form-control" placeholder="Kota">
+                {{-- <select name="kota" id="kota" placeHolder="Cari berdasarkan kota">
                     <option value="">Select a state...</option>
                     @foreach ($studio as $item)
                         <option value="{{$item->kota}}">{{$item->kota}}</option>
@@ -33,7 +34,7 @@
                             sortField: 'text'
                         });
                     });
-                </script>
+                </script> --}}
             </div>
             <div class="col-lg-3">
                 <label for="exampleFormControlSelect1">Jenis Studio</label>

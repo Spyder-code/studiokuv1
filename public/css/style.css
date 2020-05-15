@@ -203,7 +203,18 @@
 
 
 
-
+@media only screen and (max-width: 600px) {
+    .kota{
+        font-size: 10px;
+    }
+    .sec{
+        width:50%
+    }
+    .ac{
+        width:50px;
+        font-size: 5px;
+    }
+  }
 
 /*footer*/
 
