@@ -58,7 +58,7 @@
             <div class="section-title  text-center">
                 <h2>Layanan yang Kami Berikan</h2>
                 <span class="title-line"><i class="fa fa-music" ></i></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto.</p>
+                <p>Berikut cara kerja Studioku secara garis besar dalam membantu para calon penyewa studio dan pemilik rental studio</p>
 
             </div>
         </div>
@@ -70,33 +70,33 @@
                 <div class="col-lg-4">
                     <div class="service-1">
                         <span class="service-1-icon">
-                            <span class="flaticon-car-1"><i class="fa fa-laptop" style="color: #17a2b8"></i></span>
+                            <span class="flaticon-car-1"><i class="fa fa-search" style="color: #17a2b8"></i></span>
                         </span>
                         <div class="service-1-contents">
                             <h3>Info Studio</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+                            <p>Temukan studio musik terdekat di wilayah anda. Anda bisa melihat semua informasi termasuk fasilitas yang disediakan studio untuk pertimbangan menyewa studio.  Dari studio kecil paling unik hingga studio top-line eksklusif, kami memiliki studio yang tepat untuk setiap budget.</p>
                         </div>
                     </div>
             </div>
             <div class="col-lg-4">
                 <div class="service-1">
                     <span class="service-1-icon">
-                        <span class="flaticon-traffic"><i class="fa fa-laptop" style="color: #17a2b8"></i></span>
+                        <span class="flaticon-traffic"><i class="fa fa-calendar-plus" style="color: #17a2b8"></i></span>
                     </span>
                     <div class="service-1-contents">
                         <h3>Pesan Studio</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+                        <p>Kirim permintaan pemesanan untuk waktu, tanggal, dan bahkan layanan tambahan untuk sesi Anda dalam beberapa klik. Terima konfirmasi kembali secara langsung.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="service-1">
                 <span class="service-1-icon">
-                    <span class="flaticon-valet"><i class="fa fa-fw fa-laptop" style="color: #17a2b8"></i></span>
+                    <span class="flaticon-valet"><i class="fa fa-fw fa-tasks" style="color: #17a2b8"></i></span>
                 </span>
                 <div class="service-1-contents">
                     <h3>Management Studio</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+                    <p>Sebagai pemilik rental studio anda bisa menerima pesanan dan menolak pesanan secara daring tanpa bertemu secara langsung. Dan mengatur seluruh pesanan tanpa harus mendata manual. </p>
                 </div>
                 </div>
             </div>
@@ -116,8 +116,6 @@
             <div class="section-title  text-center">
                 <h2>Jenis Studio</h2>
                 <span class="title-line"><i class="fa fa-music" ></i></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto.</p>
-
             </div>
         </div>
         <!-- Section Title End -->

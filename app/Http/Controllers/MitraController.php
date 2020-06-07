@@ -36,10 +36,10 @@ class MitraController extends Controller
     {
         $request->validate([
             'email' => 'bail|required|unique:mitras|max:255',
-            'nama' => 'required',
+            'name' => 'required',
             'password' => 'required',
             'alamat' => 'required',
-            'nomor' => 'required|numeric',
+            'phone' => 'required|numeric',
         ]);
 
         $newUser = Mitra::create([
