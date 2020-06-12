@@ -24,46 +24,64 @@
         </div>
     @endif
 
-    <div id="evoCalendar" class="mt-5"></div>
+    <div class="container mt-5 mb-4">
+        <div class="row text-center">
+            <div class="col-sm">
+                <div class="form-group">
+                    <h5 for="tanggal">Cari berdasarkan Tanggal</h5>
+                    <input type="text" class="form-control text-center d-inline search" name="tanggal" id="datepicker">
+                    <button class="btn btn-primary">Cari</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nama Ruangan</th>
+            <th scope="col">Nama band</th>
+            <th scope="col">Tanggal main</th>
+            <th scope="col">Waktu main</th>
+            <th scope="col">Waktu selesai</th>
+          </tr>
+        </thead>
+        <tbody>
+         <div id="ta">
+            @foreach ($data as $item)
+            <tr>
+              <th scope="row">{{$loop->iteration}}</th>
+              <td>{{$item->namaRuangan}}</td>
+              <td>{{$item->nama_band}}</td>
+              <td>{{$item->tanggal_main}}</td>
+              <td>{{$item->waktu_main}}</td>
+              <td>{{$item->waktu_selesai}}</td>
+            </tr>
+            @endforeach
+         </div>
+        </tbody>
+      </table>
+</div>
 
     <script>
-        $(function(){
-        //     myEvents = [
-        // { name: "New Year", date: "Wed Jan 01 2020 00:00:00 GMT-0800 (Pacific Standard Time)", type: "holiday", everyYear: true },
-        // { name: "Valentine's Day", date: "Fri Feb 14 2020 00:00:00 GMT-0800 (Pacific Standard Time)", type: "holiday", everyYear: true },
-        // { name: "Birthday", date: "February/3/2020", type: "birthday" },
-        // { name: "Author's Birthday", date: "February/15/2020", type: "birthday", everyYear: true },
-        // { name: "Holiday", date: "February/15/2020", type: "event" },
-        // {name:"yo wes band, 07.00-08.00", date:"May/03/2020 07:00:00 GMT-0800 (Pacific Standard Time)", type:"birthday"},
-        // {name:"yo wes, 07.00-08.00", date:"May/03/2020 07:00:00 GMT-0800 (Pacific Standard Time)", type:"birthday"},
-        // {name:"yo, 07.00-08.00", date:"May/03/2020 07:00:00 GMT-0800 (Pacific Standard Time)", type:"birthday"},
-        // ],
-
-        var request = $.get('/data');
-        request.done(function(response) {
-            console.log(response[0].kode);
-
-            myEvents = [
-        { name: response[0].nama_band, date: response[0].tanggal_main, type: "birthday"},
-        ],
-
-        $('#evoCalendar').evoCalendar({
-        calendarEvents: myEvents,
-        format: 'mm/dd/yyyy',
-        titleFormat: 'MM yyyy',
-        eventHeaderFormat: 'MM d, yyyy'
-        });
-
-        $('#evoCalendar').on('selectEvent', function() {
-            console.log("ok");
-        });
-
-        $('#evoCalendar').on('selectDate', function() {
-
-        });
-        });
-
-        })
+            $( "#datepicker" ).datepicker({
+                dateFormat: "dd MM yy",
+                onSelect: function() {
+                    $value=$(this).val();
+                    $.ajax({
+                    type : 'get',
+                    url : '{{url('searchJadwal')}}',
+                    data:{'search':$value},
+                    success:function(data){
+                        $('#ta').remove();
+                        $('tbody').html(data);
+                        console.log("success");
+                }
+                });
+                }
+                });
     </script>
 
 </div>

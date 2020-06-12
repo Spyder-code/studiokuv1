@@ -18,6 +18,7 @@
 
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('js/jquery-ui.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{asset('css/mdb.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/mdb.lite.css')}}">
   <link href="{{asset('css/mdtimepicker.css')}}" rel="stylesheet">
@@ -34,6 +35,7 @@
 
     <script type="text/javascript" src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/jquery-ui.js')}}"></script>
     <script src="{{asset('js/mdtimepicker.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/evo-calendar/evo-calendar.js')}}"></script>
 

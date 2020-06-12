@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,12 @@
 
 
 Route::get('/','StudioController@index');
+Route::get('/forgotPassword/{Mitra}','MitraController@forgotPass');
+Route::post('/resetPass','StudioController@resetPass');
+Route::post('/changePass','MitraController@changePass');
+Route::get('/resetPass',function(){
+    return view('resetPassword');
+});
 Route::get('/mitra','MitraController@index');
 Route::get('/mitra/registrasi','MitraController@registrasi');
 Route::get('/mitra/login','MitraController@login');
@@ -51,6 +57,7 @@ Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback')
  */
 Route::group(['middleware'=>'mita'], function() {
 
+    Route::get('/searchJadwal', 'MitraController@searchJadwal');
     Route::get('/admin', 'MitraController@admin');
     Route::get('/studio', 'MitraController@studio');
     Route::get('/transaksi', 'MitraController@transaksi');

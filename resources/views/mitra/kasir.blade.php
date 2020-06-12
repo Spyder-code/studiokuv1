@@ -171,7 +171,7 @@
                     $("#uang").keyup(function(e){
                         $(this).val(format($(this).val()));
                         var uang = $(this).val();
-                        var newValue = uang.replace(',', '000');
+                        var newValue = uang.replace(',', '');
                         var a = parseInt(newValue);
                         $("#kembalian").html("Rp. "+format(a - data[0].harga));
                     });

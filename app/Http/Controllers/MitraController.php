@@ -32,6 +32,28 @@ class MitraController extends Controller
         return view('mitra.registrasi');
     }
 
+    public function forgotPass()
+    {
+        return view('changePass');
+    }
+
+    public function changePass(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|max:255',
+            'password' => 'required|confirmed',
+        ]);
+        $data = Mitra::all()->where('email',$request->email);
+        if($data->count()>0){
+            Mitra::where('email',$request->email)
+            ->update([
+                'password' => Hash::make($request->password),
+            ]);
+            return redirect('mitra/login')->with(['success' => 'Kata sandi berhasil di ubah!']);
+        }else{
+            return back()->with(['danger' => 'Email anda salah!']);
+        }
+    }
     public function register(Request $request)
     {
         $request->validate([
@@ -227,6 +249,38 @@ class MitraController extends Controller
 
     }
 
+    public function searchJadwal(Request $request)
+    {
+        $a=1;
+        $id = auth()->guard('mitra')->user()->id;
+    if($request->ajax()){
+    $output="";
+    $data = DB::table('pemesanans')
+    ->join('users','users.id','=','pemesanans.id_user')
+    ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+    ->join('studios','studios.id','=','ruangs.id_studio')
+    ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+    ->where('studios.id_mitra',$id)
+    ->where('pemesanans.tanggal_main','LIKE','%'.$request->search."%")
+    ->orderBy('pemesanans.tanggal_main', 'desc')->get();
+    if($data){
+    foreach ($data as $item) {
+    $output.='<tr>'.
+    '<th scope="row"> '.$a++.'</th>'.
+    '<td>'.$item->namaRuangan.'</td>'.
+    '<td>'.$item->nama_band.'</td>'.
+    '<td>'.$item->tanggal_main.'</td>'.
+    '<td>'.$item->waktu_main.'</td>'.
+    '<td>'.$item->waktu_selesai.'</td>'.
+    '</tr>';
+    }
+    return Response($output);
+    }
+    }
+    }
+
+
+
     public function addStudio(Request $request)
     {
         $nama = auth()->guard('mitra')->user()->nama;
@@ -302,12 +356,18 @@ class MitraController extends Controller
         $data = DB::table('pemesanans')
         ->join('users','users.id','=','pemesanans.id_user')
         ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->join('studios','studios.id','=','ruangs.id_studio')
         ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+        ->where('studios.id_mitra',$id)
         ->orderBy('created_at', 'desc')->paginate(5);
 
         $dataPembayaran = DB::table('transaksis')
         ->join('pemesanans','pemesanans.id','=','transaksis.id_pemesanan')
+        ->join('users','users.id','=','pemesanans.id_user')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->join('studios','studios.id','=','ruangs.id_studio')
         ->select('pemesanans.nama_band','transaksis.*')
+        ->where('studios.id_mitra',$id)
         ->orderBy('created_at', 'desc')->paginate(5);
 
         return view('mitra.transaksi',compact('nama','image','data','dataPembayaran'));
@@ -318,7 +378,14 @@ class MitraController extends Controller
         $nama = auth()->guard('mitra')->user()->nama;
         $id = auth()->guard('mitra')->user()->id;
         $image = auth()->guard('mitra')->user()->image;
-        return view('mitra.jadwal',compact('nama','image'));
+        $data = DB::table('pemesanans')
+        ->join('users','users.id','=','pemesanans.id_user')
+        ->join('ruangs','ruangs.id','=','pemesanans.id_ruangan')
+        ->join('studios','studios.id','=','ruangs.id_studio')
+        ->select('users.name','ruangs.nama as namaRuangan','pemesanans.*')
+        ->where('studios.id_mitra',$id)
+        ->orderBy('pemesanans.tanggal_main', 'desc')->paginate(5);
+        return view('mitra.jadwal',compact('nama','image','data'));
     }
 
     public function dataJadwal(){

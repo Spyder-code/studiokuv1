@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Mail\SendMail;
+use App\Mitra;
 use App\Pemesanan;
 use App\Ruang;
 use App\Studio;
 use App\Notifikasi;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class StudioController extends Controller
 {
@@ -47,7 +52,9 @@ class StudioController extends Controller
             ->select('studios.address','studios.open','studios.closed','studios.phone','mitras.nama as nama_mitra','studios.name as nama_studio','studios.id as id_studio','ruangs.*')
             ->where('ruangs.id',$id)
             ->get();
-            return view('user.detailStudio',compact('data','notif'));
+            $boking = Pemesanan::where('id_ruangan',$id)
+            ->orderBy('tanggal_main','desc')->get();
+            return view('user.detailStudio',compact('data','notif','boking'));
         }else{
             $id = $ruang->id;
             $url = $request->session()->put('url','studio/'.$id);
@@ -58,8 +65,42 @@ class StudioController extends Controller
             ->select('studios.address','studios.open','studios.closed','studios.phone','mitras.nama as nama_mitra','studios.name as nama_studio','studios.id as id_studio','ruangs.*')
             ->where('ruangs.id',$id)
             ->get();
-            return view('user.detailStudio',compact('data'));
+            $boking = Pemesanan::where('id_ruangan',$id)
+            ->orderBy('tanggal_main','desc')->get();
+            return view('user.detailStudio',compact('data','boking'));
         }
+    }
+
+    public function resetPass(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $data = Mitra::all()->where('email',$request->email);
+        if($data->count()>0){
+            foreach($data as $item){
+                $customer_details = [
+                    'nama' => $item->nama,
+                    'email' => $item->email,
+                    'password' => $item->password,
+                ];
+                $title = '[Forgot Password] Account studioku.spydercode.site';
+
+                $sendmail = Mail::to($customer_details['email'])->send(new SendMail($title,$customer_details));
+                if (empty($sendmail)) {
+                    return back()->with(['success' => 'Pesan berhasil terkirim. Silahkan cek Email anda!']);
+                    // return response()->json(['message' => 'Mail Sent Sucssfully'], 200);
+                }else{
+                    return back()->with(['danger' => 'Pesan gagal terkirim. Mohon ulangi beberapa saat lagi!']);
+                    // return response()->json(['message' => 'Mail Sent fail'], 400);
+                }
+            }
+        }else{
+            return back()->with(['danger' => 'Email tersebut belum terdaftar. Mohon registrasi terlebih dahulu!']);
+        }
+
+
+
     }
 
     public function booking(Request $request)
@@ -70,7 +111,11 @@ class StudioController extends Controller
             'mulai' => 'required',
             'selesai' => 'required',
         ]);
-
+            $a =0;
+            $b=0;
+        $boking = Pemesanan::all()
+        ->where('id_ruangan',$request->id_ruang)
+        ->where('tanggal_main',$request->tanggal);
         $mulai =  strtotime($request->mulai);
         $akhir = strtotime($request->selesai);
         $total = $akhir-$mulai;
@@ -82,23 +127,53 @@ class StudioController extends Controller
         }
         $harga = $angka*$request->harga;
         if (Auth::check()){
-            $id = Auth::id();
-            $data = new Pemesanan();
-            $data->id_user = $id;
-            $data->id_ruangan = $request->id_ruang;
-            $data->kode = 0;
-            $data->nama_band = $request->band;
-            $data->waktu_main = $request->mulai;
-            $data->waktu_selesai = $request->selesai;
-            $data->waktu_total = $angka;
-            $data->tanggal_main = $request->tanggal;
-            $data->harga = $harga;
-            $data->status = 0;
-            $data->save();
+            if($boking->count()>0){
+                foreach($boking  as $item){
+                    if($mulai>=strtotime($item->waktu_main) && $mulai<strtotime($item->waktu_selesai)){
+                        $a = $a +1;
+                    }
+                };
+                if($a>0){
+                    return back()->with(['waktu' => 'Waktu tersebut sudah dipesan band lain! Silahkan cek daftar booking terlebih dahulu']);
+                }else{
+                    $id = Auth::id();
+                    $data = new Pemesanan();
+                    $data->id_user = $id;
+                    $data->id_ruangan = $request->id_ruang;
+                    $data->kode = 0;
+                    $data->nama_band = $request->band;
+                    $data->waktu_main = $request->mulai;
+                    $data->waktu_selesai = $request->selesai;
+                    $data->waktu_total = $angka;
+                    $data->tanggal_main = $request->tanggal;
+                    $data->harga = $harga;
+                    $data->status = 0;
+                    $data->save();
 
-            $idTransaksi = $data->id;
-            $request->session()->put('idPesanan',$idTransaksi);
-            return redirect('transaksi-booking');
+                    $idTransaksi = $data->id;
+                    $request->session()->put('idPesanan',$idTransaksi);
+                    return redirect('transaksi-booking');
+                }
+            }else{
+                $id = Auth::id();
+                $data = new Pemesanan();
+                $data->id_user = $id;
+                $data->id_ruangan = $request->id_ruang;
+                $data->kode = 0;
+                $data->nama_band = $request->band;
+                $data->waktu_main = $request->mulai;
+                $data->waktu_selesai = $request->selesai;
+                $data->waktu_total = $angka;
+                $data->tanggal_main = $request->tanggal;
+                $data->harga = $harga;
+                $data->status = 0;
+                $data->save();
+
+                $idTransaksi = $data->id;
+                $request->session()->put('idPesanan',$idTransaksi);
+                return redirect('transaksi-booking');
+            }
+
         }else{
             $url = $request->session()->put('url','studio/'.$request->id_ruang);
             return back()->with(['danger' => 'Anda harus login terlebih dahulu!']);

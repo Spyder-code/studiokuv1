@@ -50,6 +50,16 @@
                 </div>
             </div>
             @endif
+            @if ($message = Session::get('waktu'))
+            <div class="row">
+                <div class="col mt-3">
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">x</button>
+                        <strong>{{ $message }}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             @error('band')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -88,7 +98,8 @@
                         </div>
                     </div>
                 </div>
-                        <button type="submit" class="btn btn-info">Booking</button>
+                    <button type="submit" class="btn btn-info">Booking</button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#listBooking">List Daftar Booking</button>
             </form>
 
         </div>
@@ -144,8 +155,8 @@
         </div>
         </div>
 
-            <i class="fas fa-comment-dots float-right fixed-bottom text-success" style="margin-left:90%; font-size:60px;" data-toggle="modal" data-target="#centralModalSuccess"><h6>Chat pemilik studio</h6>
-            </i>
+            {{-- <i class="fas fa-comment-dots float-right fixed-bottom text-success" style="margin-left:90%; font-size:60px;" data-toggle="modal" data-target="#centralModalSuccess"><h6>Chat pemilik studio</h6>
+            </i> --}}
 
             <!-- Central Modal Medium Success -->
             <div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -287,4 +298,49 @@
 
             });
         </script>
+
+        {{-- modal list booing --}}
+        <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="listBooking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title text-center" id="exampleModalLabel">Tanggal sekarang : {{date('d F Y')}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama band</th>
+                        <th scope="col">Tanggal main</th>
+                        <th scope="col">Waktu main</th>
+                        <th scope="col">Waktu selesai</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($boking as $item)
+                      <tr>
+                        <th scope="row">{{$loop->iteration}}</th>
+                        <td>{{$item->nama_band}}</td>
+                        <td>{{$item->tanggal_main}}</td>
+                        <td>{{$item->waktu_main}}</td>
+                        <td>{{$item->waktu_selesai}}</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
 @endsection

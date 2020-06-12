@@ -79,6 +79,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($dataPembayaran as $item)
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$item->nama_band}}</td>
@@ -87,6 +88,7 @@
                             <td>{{$item->kembalian}}</td>
                             <td>{{ date('d-M-y', strtotime($item->created_at)) }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 @else
