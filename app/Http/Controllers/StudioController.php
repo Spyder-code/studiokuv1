@@ -184,7 +184,6 @@ class StudioController extends Controller
     {
         $url = $request->session()->put('url','/search');
         $kota = $request->kota;
-        // dd($kota);
         $jenis = $request->jenis;
         $studio = Studio::all();
         $provinsi = DB::table('wilayah_provinsi')->get();
@@ -198,7 +197,7 @@ class StudioController extends Controller
         if($data){
             return view('user.search',compact('data','provinsi','studio'));
         }else{
-            return view('user.search','provinsi')->with(['success' => 'Add Studio is Success']);
+            return view('user.search','provinsi');
         }
     }
 

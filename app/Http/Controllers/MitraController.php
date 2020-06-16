@@ -76,8 +76,6 @@ class MitraController extends Controller
         Auth::guard('mitra')->login($newUser);
 
         return redirect('/admin');
-
-        // return back()->with(['success' => 'Registrasi berhasil']);
     }
     public function admin()
     {

@@ -54,7 +54,7 @@
                     </div>
                 <div class="text-center mt-2">
                     <button class="btn btn-success" type="submit">Log in <i class="fas fa-sign-in ml-1"></i></button>
-                    <a class="btn btn-warning" href="{{url('resetPass')}}">Forgot email or password <i class="fas fa-sign-in ml-1"></i></a>
+                    <a class="btn btn-warning" href="{{url('resetPass')}}">Forgot password <i class="fas fa-sign-in ml-1"></i></a>
                 </div>
                 </form>
             </div>

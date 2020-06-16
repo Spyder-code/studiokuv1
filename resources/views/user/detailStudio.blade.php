@@ -20,7 +20,7 @@
         <div class="row justify-content-center mb-4 mt-4">
             @foreach ($data as $item)
             <div class="col col-6">
-                <img src="{{ asset('image/'.$item->nama_mitra.'/'.$item->image) }}" class="img-thumbnail" style="height:50%">
+                <img src="{{ asset('image/'.$item->nama_mitra.'/'.$item->image) }}" class="img-thumbnail" style="height:450px">
             </div>
             <div class="col col-6 border-right">
 
